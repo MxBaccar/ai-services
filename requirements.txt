@@ -1,3 +1,12 @@
-fastapi
-uvicorn
-pydantic
+# GymCore AI Services — Python Dependencies
+# Pin versions for reproducible Docker builds.
+# Update with: pip install --upgrade <package> && pip freeze > requirements.txt
+
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+pydantic==2.7.1
+
+# Pending — add when LLM integration is implemented:
+# anthropic>=0.28.0       # Claude API client
+# httpx>=0.27.0           # Async HTTP for external API calls
+# python-multipart>=0.0.9 # Multipart form support for video/image uploads (form correction endpoint)
