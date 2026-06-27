@@ -38,7 +38,7 @@ Architecture Notes
 import json
 import logging
 import os
-from typing import Optional
+from typing import Any, Optional
 
 import anthropic
 from fastapi import FastAPI, HTTPException
@@ -82,7 +82,7 @@ def _mock_plan(user_input: UserGoalInput) -> WorkoutPlanResponse:
     Alternates Strength / Cardio–Mobility by day; sets intensity based on
     fitness_level. Allows local development and CI to run without an API key.
     """
-    days = []
+    days: list[WorkoutPlanDay] = []
     for i in range(1, user_input.days_per_week + 1):
         category = "Strength" if i % 2 != 0 else "Cardio/Mobility"
         intensity = "High" if user_input.fitness_level == "advanced" else "Moderate"
@@ -210,7 +210,7 @@ async def analyze_form(request: FormAnalysisRequest) -> FormAnalysisResponse:
     frames = request.frames[:4]
 
     # Build the vision content block list — one image per frame
-    image_content = [
+    image_content: list[dict[str, Any]] = [
         {
             "type": "image",
             "source": {
@@ -296,7 +296,7 @@ If the form is excellent, return an empty feedback array and a high overall_scor
 
 
 @app.get("/health")
-async def health_check() -> dict:
+async def health_check() -> dict[str, object]:
     """
     Liveness probe for Docker Compose healthcheck and Prometheus scraping.
 
